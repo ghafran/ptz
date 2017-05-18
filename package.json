@@ -1,0 +1,25 @@
+{
+  "name": "ptz",
+  "version": "0.0.0",
+  "description": "ptz",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghafran/ptz.git"
+  },
+  "author": "Ghafran Abbas <ghafranabbas@gmail.com> (https://github.com/ghafran)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ghafran/ptz/issues"
+  },
+  "homepage": "https://github.com/ghafran/ptz#readme",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

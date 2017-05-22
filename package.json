@@ -2,7 +2,7 @@
     "name": "ptz",
     "version": "0.0.1",
     "description": "ptz",
-    "main": "index.js",
+    "main": "lib/ptz.js",
     "gypfile": true,
     "scripts": {
         "test": "gulp test"
@@ -13,6 +13,16 @@
     },
     "author": "Ghafran Abbas (https://github.com/ghafran)",
     "license": "ISC",
+    "keywords": [
+        "ptz",
+        "pan",
+        "tilt",
+        "zoom",
+        "fecc",
+        "camera",
+        "uvc",
+        "visca"
+    ],
     "bugs": {
         "url": "https://github.com/ghafran/ptz/issues"
     },

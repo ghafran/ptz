@@ -1,25 +1,41 @@
 {
-  "name": "ptz",
-  "version": "0.0.0",
-  "description": "ptz",
-  "main": "index.js",
-  "scripts": {
-    "test": "gulp test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ghafran/ptz.git"
-  },
-  "author": "Ghafran Abbas <ghafranabbas@gmail.com> (https://github.com/ghafran)",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ghafran/ptz/issues"
-  },
-  "homepage": "https://github.com/ghafran/ptz#readme",
-  "directories": {
-    "doc": "docs",
-    "test": "test"
-  },
-  "dependencies": {},
-  "devDependencies": {}
+    "name": "ptz",
+    "version": "0.0.0",
+    "description": "ptz",
+    "main": "index.js",
+    "gypfile": true,
+    "scripts": {
+        "test": "gulp test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ghafran/ptz.git"
+    },
+    "author": "Ghafran Abbas (https://github.com/ghafran)",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ghafran/ptz/issues"
+    },
+    "homepage": "https://github.com/ghafran/ptz#readme",
+    "directories": {
+        "doc": "docs",
+        "test": "test"
+    },
+    "dependencies": {
+        "bluebird": "^3.5.0",
+        "lodash": "^4.17.4"
+    },
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "chalk": "^1.1.3",
+        "chance": "^1.0.6",
+        "gulp": "^3.9.1",
+        "gulp-jshint": "^2.0.4",
+        "gulp-load-plugins": "^1.5.0",
+        "gulp-mocha": "^4.3.1",
+        "jshint": "^2.9.4",
+        "jshint-stylish": "^2.2.1",
+        "gulp-shell": "^0.6.3",
+        "run-sequence": "^1.2.2"
+    }
 }

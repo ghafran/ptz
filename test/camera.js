@@ -112,7 +112,7 @@ describe('camera', () => {
         }
     });
 
-    it('absoluteZoom', () => {
+    it('absolutePanTilt', () => {
         if(_capabilities.absolutePanTilt) {
             return _camera.absolutePanTilt(0, 0);
         }

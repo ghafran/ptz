@@ -1,7 +1,7 @@
 'use strict';
 
 var expect = require('chai').expect,
-    ptz = require('../../lib/ptz');
+    ptz = require('../lib/ptz');
 
 describe('ptz', () => {
 

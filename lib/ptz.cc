@@ -557,11 +557,11 @@ void getAbsoluteZoom(const FunctionCallbackInfo<Value>& args) {
 
         // create output result
         Local<Object> jsDevice = Object::New(isolate);
-        jsDevice->Set(String::NewFromUtf8(isolate, "min"), Boolean::New(isolate, absoluteZoomInfo.min));
-        jsDevice->Set(String::NewFromUtf8(isolate, "max"), Boolean::New(isolate, absoluteZoomInfo.max));
-        jsDevice->Set(String::NewFromUtf8(isolate, "resolution"), Boolean::New(isolate, absoluteZoomInfo.resolution));
-        jsDevice->Set(String::NewFromUtf8(isolate, "current"), Boolean::New(isolate, absoluteZoomInfo.current));
-        jsDevice->Set(String::NewFromUtf8(isolate, "default"), Boolean::New(isolate, absoluteZoomInfo.def));
+        jsDevice->Set(String::NewFromUtf8(isolate, "min"), Integer::New(isolate, absoluteZoomInfo.min));
+        jsDevice->Set(String::NewFromUtf8(isolate, "max"), Integer::New(isolate, absoluteZoomInfo.max));
+        jsDevice->Set(String::NewFromUtf8(isolate, "resolution"), Integer::New(isolate, absoluteZoomInfo.resolution));
+        jsDevice->Set(String::NewFromUtf8(isolate, "current"), Integer::New(isolate, absoluteZoomInfo.current));
+        jsDevice->Set(String::NewFromUtf8(isolate, "default"), Integer::New(isolate, absoluteZoomInfo.def));
 
         // cleanup
         closeDevice(&uvcDevice);

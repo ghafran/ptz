@@ -155,3 +155,5 @@ camera.getRelativePanTilt().then(function(panTilt){
 # As A Side Note
 
 Just as a side node, on every operation sent to the camera, a USB connection is opened and immediately closed. This is to minimize conflicts with the USB device and keep things easy to manage. We don't need to figure out how to keep USB connections open and maintain them.
+
+Don't always trust the min max values from the cameras. For pan/tilt the min should always be (-180 * 3600) and max should be (180 * 3600). If these values are different, test the values before trusting them.

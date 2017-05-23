@@ -72,7 +72,7 @@ Relative lets you send a zoom-in or zoom-out commands, then the camera will begi
 
 ```
 // Get the camera's zoom info so you know the min, max, and resolution values for zoom level.
-camera.getAboluteZoom().then(function(zoom){
+camera.getAbsoluteZoom().then(function(zoom){
     console.log(zoom);
 
     var zoomLevel = 10; // must be between min and max and divisible by resolution, without remainder.

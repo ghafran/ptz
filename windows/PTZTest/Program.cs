@@ -16,10 +16,20 @@ namespace PTZTest
             Console.WriteLine("Capabilities: Absolute Zoom: {0}, Relative Zoom: {1}, Absolute PanTilt: {2}, Relative PanTilt: {3}", device.SupportsAbsoluteZoom, device.SupportsRelativeZoom, device.SupportsAbsolutePanTilt, device.SupportsRelativePanTilt);
             while (true)
             {
-                Console.WriteLine("Enter Command: (q, z, p, t, pt)");
+                Console.WriteLine("Enter Command: (q, l, z, p, t, pt)");
                 string command = Console.ReadLine();
                 if (command == "q") {
                     break;
+                }
+
+                if (command == "l")
+                {
+                    string[] devices = PTZ.Device.GetDevices();
+                    for (int i = 0; i < devices.Length; i++)
+                    {
+                        Console.WriteLine(devices[i]);
+                    }
+
                 }
 
                 if (command == "za")

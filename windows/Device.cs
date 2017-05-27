@@ -154,41 +154,15 @@ namespace PTZ
             return res1;
         }
 
-        //private void MoveInternal(KSProperties.CameraControlFeature axis, int value)
-        //{
-        //    // Create and prepare data structures
-        //    var control = new KSProperties.KSPROPERTY_CAMERACONTROL_S();
-
-        //    IntPtr controlData = Marshal.AllocCoTaskMem(Marshal.SizeOf(control));
-        //    IntPtr instData = Marshal.AllocCoTaskMem(Marshal.SizeOf(control.Instance));
-
-        //    control.Instance.Value = value;
-
-        //    //TODO: Fix for Absolute
-        //    control.Instance.Flags = (int)CameraControlFlags.Relative;
-
-        //    Marshal.StructureToPtr(control, controlData, true);
-        //    Marshal.StructureToPtr(control.Instance, instData, true);
-        //    var hr2 = _ksPropertySet.Set(PROPSETID_VIDCAP_CAMERACONTROL, (int)axis, instData, Marshal.SizeOf(control.Instance), controlData, Marshal.SizeOf(control));
-
-        //    //TODO: It's a DC motor, no better way?
-        //    Thread.Sleep(20);
-
-        //    control.Instance.Value = 0; //STOP!
-        //    control.Instance.Flags = (int)CameraControlFlags.Relative;
-
-        //    Marshal.StructureToPtr(control, controlData, true);
-        //    Marshal.StructureToPtr(control.Instance, instData, true);
-        //    var hr3 = _ksPropertySet.Set(PROPSETID_VIDCAP_CAMERACONTROL, (int)axis, instData, Marshal.SizeOf(control.Instance), controlData, Marshal.SizeOf(control));
-
-        //    if (controlData != IntPtr.Zero) { Marshal.FreeCoTaskMem(controlData); }
-        //    if (instData != IntPtr.Zero) { Marshal.FreeCoTaskMem(instData); }
-        //}
-
-
         public static Device GetDevice(string name)
         {
             return new Device(name);
+        }
+
+        public static string[] GetDevices()
+        {
+            var devices = DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice);
+            return devices.Select(x => x.Name).ToArray();
         }
     }
 }

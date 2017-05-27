@@ -16,7 +16,7 @@ namespace PTZTest
             Console.WriteLine("Capabilities: Absolute Zoom: {0}, Relative Zoom: {1}, Absolute PanTilt: {2}, Relative PanTilt: {3}", device.SupportsAbsoluteZoom, device.SupportsRelativeZoom, device.SupportsAbsolutePanTilt, device.SupportsRelativePanTilt);
             while (true)
             {
-                Console.WriteLine("Enter Command: (q, za, pa, ta)");
+                Console.WriteLine("Enter Command: (q, z, p, t, pt)");
                 string command = Console.ReadLine();
                 if (command == "q") {
                     break;
@@ -61,10 +61,33 @@ namespace PTZTest
                     Console.WriteLine("Current Tilt: {0}, Min: {1}, Max: {2}, Step: {3}, Default: {4}", current, device.TiltMin, device.TiltMax, device.TiltStep, device.TiltDefault);
                     string value = Console.ReadLine();
                     int newvalue = int.Parse(value);
-                    int result = device.AbsolutePan(newvalue);
+                    int result = device.AbsoluteTilt(newvalue);
                     if (result == 0)
                     {
                         Console.WriteLine("Set Tilt Successfully!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed! {0}", result);
+                    }
+                }
+
+                if (command == "pt")
+                {
+                    int currentPan = device.GetPan();
+                    Console.WriteLine("Current Pan: {0}, Min: {1}, Max: {2}, Step: {3}, Default: {4}", currentPan, device.PanMin, device.PanMax, device.PanStep, device.PanDefault);
+                    string value = Console.ReadLine();
+                    int newpan = int.Parse(value);
+
+                    int current = device.GetTilt();
+                    Console.WriteLine("Current Tilt: {0}, Min: {1}, Max: {2}, Step: {3}, Default: {4}", current, device.TiltMin, device.TiltMax, device.TiltStep, device.TiltDefault);
+                    string value2 = Console.ReadLine();
+                    int newtilt = int.Parse(value2);
+
+                    int result = device.AbsolutePanTilt(newpan, newtilt);
+                    if (result == 0)
+                    {
+                        Console.WriteLine("Set Pan/Tilt Successfully!");
                     }
                     else
                     {

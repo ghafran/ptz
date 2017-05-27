@@ -147,10 +147,12 @@ namespace PTZ
             return _camControl.Set(CameraControlProperty.Tilt, tilt, CameraControlFlags.Manual);
         }
 
-        //public void AbsolutePanTilt(int pan, int tilt)
-        //{
-        //    MoveInternal(KSProperties.CameraControlFeature.KSPROPERTY_CAMERACONTROL_TILT, value);
-        //}
+        public int AbsolutePanTilt(int pan, int tilt)
+        {
+            int res1 = _camControl.Set(CameraControlProperty.Pan, pan, CameraControlFlags.Manual);
+            int res2 = _camControl.Set(CameraControlProperty.Tilt, tilt, CameraControlFlags.Manual);
+            return res1;
+        }
 
         //private void MoveInternal(KSProperties.CameraControlFeature axis, int value)
         //{

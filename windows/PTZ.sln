@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTZDevice", "PTZDevice.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTZTest", "PTZTest\PTZTest.csproj", "{3A06EB23-5796-415F-8F6E-DFD622D356C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTZServer", "PTZServer\PTZServer.csproj", "{6E29F1EC-7A54-4818-AB67-39889A8E1767}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3A06EB23-5796-415F-8F6E-DFD622D356C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A06EB23-5796-415F-8F6E-DFD622D356C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A06EB23-5796-415F-8F6E-DFD622D356C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E29F1EC-7A54-4818-AB67-39889A8E1767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E29F1EC-7A54-4818-AB67-39889A8E1767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E29F1EC-7A54-4818-AB67-39889A8E1767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E29F1EC-7A54-4818-AB67-39889A8E1767}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

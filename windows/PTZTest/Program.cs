@@ -11,7 +11,7 @@ namespace PTZTest
     {
         static void Main(string[] args)
         {
-            var p = PTZDevice.GetDevice(ConfigurationManager.AppSettings["DeviceName"], PTZType.Relative);
+            var device = PTZ.Device.GetDevice(ConfigurationManager.AppSettings["DeviceName"]);
 
             while (true)
             {
@@ -23,33 +23,19 @@ namespace PTZTest
 
                 if (command == "za")
                 {
-                    
+                    int currentZoom = device.GetZoom();
+                    Console.WriteLine("Current Zoom: %d, Min: %d, Max: %d, Step: %d, Default: %d", currentZoom, device.ZoomMin, device.ZoomMax, device.ZoomStep, device.ZoomDefault);
+                    string value = Console.ReadLine();
+                    int newvalue = int.Parse(value);
+                    int result = device.AbsoluteZoom(newvalue);
+                    if(result == 0)
+                    {
+                        Console.WriteLine("Set Zoom Successfully!");
+                    } else
+                    {
+                        Console.WriteLine("Failed! %d", result);
+                    }
                 }
-
-                //if (info.Key == ConsoleKey.LeftArrow)
-                //{
-                //    p.Move(-1, 0);
-                //}
-                //else if (info.Key == ConsoleKey.RightArrow)
-                //{
-                //    p.Move(1, 0);
-                //}
-                //else if (info.Key == ConsoleKey.UpArrow)
-                //{
-                //    p.Move(0, 1);
-                //}
-                //else if (info.Key == ConsoleKey.DownArrow)
-                //{
-                //    p.Move(0, -1);
-                //}
-                //else if (info.Key == ConsoleKey.Home)
-                //{
-                //    p.Zoom(1);
-                //}
-                //else if (info.Key == ConsoleKey.End)
-                //{
-                //    p.Zoom(-1);
-                //}
             }
         }
     }

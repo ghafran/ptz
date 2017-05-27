@@ -27,11 +27,11 @@ namespace PTZServer
             Console.WriteLine(request.Url.OriginalString);
             NameValueCollection qs = HttpUtility.ParseQueryString(request.Url.Query);
             var name = qs.Get(ConfigurationManager.AppSettings["DeviceName"]);
-            if (request.Url.LocalPath == "/zoom")
+            if (request.Url.LocalPath == "/cmd/zoom")
             {
-                int zoom = int.Parse(qs.Get("zoom"));
+                int level = int.Parse(qs.Get("level"));
                 var device = PTZ.Device.GetDevice(name);
-                int res = device.AbsoluteZoom(zoom);
+                int res = device.AbsoluteZoom(level);
                 if (res == 0)
                 {
                     return string.Format("<HTML><BODY>Zoom Successful! {0}</BODY></HTML>", DateTime.Now);
@@ -41,7 +41,7 @@ namespace PTZServer
                     return string.Format("<HTML><BODY>Zoom Failed! {0} - {1}</BODY></HTML>", DateTime.Now, res);
                 }
             }
-            else if (request.Url.LocalPath == "/pantilt")
+            else if (request.Url.LocalPath == "/cmd/pantilt")
             {
                 int pan = int.Parse(qs.Get("pan"));
                 int tilt = int.Parse(qs.Get("tilt"));
@@ -56,7 +56,7 @@ namespace PTZServer
                     return string.Format("<HTML><BODY>Pan/Tilt Failed! {0} - {1}</BODY></HTML>", DateTime.Now, res);
                 }
             }
-            else if (request.Url.LocalPath == "/click")
+            else if (request.Url.LocalPath == "/cmd/click")
             {
                 int x = int.Parse(qs.Get("x"));
                 int y = int.Parse(qs.Get("y"));

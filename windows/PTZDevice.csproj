@@ -7,8 +7,8 @@
     <ProjectGuid>{7345DC27-7F35-43AD-86B4-6826FC1475BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PTZDevice</RootNamespace>
-    <AssemblyName>PTZDevice</AssemblyName>
+    <RootNamespace>PTZ</RootNamespace>
+    <AssemblyName>PTZ</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

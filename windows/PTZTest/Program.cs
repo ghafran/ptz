@@ -11,7 +11,14 @@ namespace PTZTest
     {
         static void Main(string[] args)
         {
-            var device = PTZ.Device.GetDevice(ConfigurationManager.AppSettings["DeviceName"]);
+            Console.WriteLine("Choose Camera:");
+            string[] devices = PTZ.Device.GetDevices();
+            for (int i = 0; i < devices.Length; i++)
+            {
+                Console.WriteLine(devices[i]);
+            }
+            string name = Console.ReadLine();
+            var device = PTZ.Device.GetDevice(name);
 
             Console.WriteLine("Capabilities: Absolute Zoom: {0}, Relative Zoom: {1}, Absolute PanTilt: {2}, Relative PanTilt: {3}", device.SupportsAbsoluteZoom, device.SupportsRelativeZoom, device.SupportsAbsolutePanTilt, device.SupportsRelativePanTilt);
             while (true)
@@ -24,10 +31,10 @@ namespace PTZTest
 
                 if (command == "l")
                 {
-                    string[] devices = PTZ.Device.GetDevices();
-                    for (int i = 0; i < devices.Length; i++)
+                    string[] list = PTZ.Device.GetDevices();
+                    for (int i = 0; i < list.Length; i++)
                     {
-                        Console.WriteLine(devices[i]);
+                        Console.WriteLine(list[i]);
                     }
 
                 }

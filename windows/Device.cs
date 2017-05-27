@@ -41,10 +41,13 @@ namespace PTZ
         {
             var devices = DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice);
             var device = devices.Where(d => d.Name == name).FirstOrDefault();
+            if (device == null) {
+                device = devices.FirstOrDefault();
+            }
 
             _device = device;
 
-            if (_device == null) throw new ApplicationException(String.Format("Couldn't find device named {0}!", name));
+            if (_device == null) throw new ApplicationException(String.Format("Couldn't find device named {0} or any others!", name));
 
             IFilterGraph2 graphBuilder = new FilterGraph() as IFilterGraph2;
             IBaseFilter filter = null;
@@ -133,21 +136,31 @@ namespace PTZ
 
         public int AbsoluteZoom(int zoom)
         {
+            zoom = Math.Min(zoom, ZoomMax);
+            zoom = Math.Max(zoom, ZoomMin);
             return _camControl.Set(CameraControlProperty.Zoom, zoom, CameraControlFlags.Manual);
         }
 
         public int AbsolutePan(int pan)
         {
+            pan = Math.Min(pan, PanMax);
+            pan = Math.Max(pan, PanMin);
             return _camControl.Set(CameraControlProperty.Pan, pan, CameraControlFlags.Manual);
         }
 
         public int AbsoluteTilt(int tilt)
         {
+            tilt = Math.Min(tilt, TiltMax);
+            tilt = Math.Max(tilt, TiltMin);
             return _camControl.Set(CameraControlProperty.Tilt, tilt, CameraControlFlags.Manual);
         }
 
         public int AbsolutePanTilt(int pan, int tilt)
         {
+            pan = Math.Min(pan, PanMax);
+            pan = Math.Max(pan, PanMin);
+            tilt = Math.Min(tilt, TiltMax);
+            tilt = Math.Max(tilt, TiltMin);
             int res1 = _camControl.Set(CameraControlProperty.Pan, pan, CameraControlFlags.Manual);
             int res2 = _camControl.Set(CameraControlProperty.Tilt, tilt, CameraControlFlags.Manual);
             return res1;

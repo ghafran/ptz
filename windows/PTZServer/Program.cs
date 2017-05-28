@@ -31,9 +31,8 @@ namespace PTZServer
             {
                 int level = int.Parse(qs.Get("level"));
                 var device = PTZ.Device.GetDevice(name);
-                var stepsize = (device.ZoomMax - device.ZoomMin) / 10;
-                var newzoom = stepsize * level;
-                int res = device.AbsoluteZoom(newzoom);
+                var newZoom = zoomLevel(device.ZoomMin, device.ZoomMax, 10, level);
+                int res = device.AbsoluteZoom(newZoom);
                 if (res == 0)
                 {
                     return string.Format("<HTML><BODY>Zoom Successful! {0}</BODY></HTML>", DateTime.Now);
@@ -65,48 +64,17 @@ namespace PTZServer
                 int w = int.Parse(qs.Get("w"));
                 int h = int.Parse(qs.Get("h"));
                 var device = PTZ.Device.GetDevice(name);
-
-                var tweak = 1.2;
-                var currentzoom = device.GetZoom() * 3600;
-                int currentPan = device.GetPan() * 3600;
+                int pan;
+                int tilt;
+ 
+                var currentzoom = device.GetZoom();
+                int currentPan = device.GetPan();
                 int currentTilt = device.GetTilt();
 
-                int zoomrange = (device.ZoomMax - device.ZoomMin) / 10;
-                int level = currentzoom / zoomrange;
-                double panOffset = currentzoom == 0 ? 56 : (1 / level) * 56 * tweak; //56 is degrees viewable from center
-                double tiltOffset = currentzoom == 0 ? 37 : (1 / level) * 37 * tweak; //37 is degrees viewable from center
-                int minPanView = (int)-panOffset * 3600;
-                int maxPanView = (int)panOffset * 3600;
-                int minTiltView = (int)-tiltOffset * 3600;
-                int maxTiltView = (int)tiltOffset * 3600;
-                int pan;
-                int xres = (maxPanView - minPanView) / (w); // pan value per pixel
-                int xcenter = w / 2;
-                int xperpixel = Math.Abs(xcenter - x) * (xres / 2);
-                if (x > xcenter)
-                {
-                    pan = currentPan + xperpixel;
-                }
-                else
-                {
-                    pan = currentPan - xperpixel;
-                }
-
-                int tilt;
-                int yres = (maxTiltView - minTiltView) / (h); // tilt value per pixel
-                int ycenter = h / 2;
-                int yperpixel = Math.Abs(ycenter - y) * (yres / 2);
-                if (y > ycenter)
-                {
-                    tilt = currentTilt - yperpixel;
-                }
-                else
-                {
-                    tilt = currentTilt + yperpixel;
-                }
-
-                pan = pan / 3600;
-                tilt = tilt / 3600;
+                click(device.ZoomMin, device.ZoomMax, currentzoom, 10,
+                    device.PanMin, device.PanMax, currentPan, 56,
+                    device.TiltMin, device.TiltMax, currentTilt, 37,
+                    w, h, x, y, out pan, out tilt);
 
                 int res = device.AbsolutePanTilt(pan, tilt);
                 if (res == 0)
@@ -124,66 +92,68 @@ namespace PTZServer
             }
         }
         
-        static click(zoomMin, zoomMax, zoomCurrent, zoomLevels,
-        panMin, panMax, panCurrent, panDegreesOfView,
-        tiltMin, tiltMax, tiltCurrent, tiltDegreesOfView,
-        w, h, x, y) {
+        static void click(int zoomMin, int zoomMax, int zoomCurrent, int zoomLevels,
+            int panMin, int panMax, int panCurrent, int panDegreesOfView,
+            int tiltMin, int tiltMax, int tiltCurrent, int tiltDegreesOfView,
+            int w, int h, int x, int y, out int pan, out int tilt) {
 
-        var zoomTweak = 1;
-        var zoomStep = Math.floor((zoomMax - zoomMin) / zoomLevels);
-        var zoomCurrentLevel = Math.floor(zoomCurrent / zoomStep);
+            double div;
 
-        var panDegreesOfViewOneDirection = Math.floor(panDegreesOfView / 2);
-        var tiltDegreesOfViewOneDirection = Math.floor(tiltDegreesOfView / 2);
-        var panOffset = zoomCurrent === 0 ? panDegreesOfViewOneDirection : (1 / zoomCurrentLevel) * panDegreesOfViewOneDirection * zoomTweak;
-        var tiltOffset = zoomCurrent === 0 ? tiltDegreesOfViewOneDirection : (1 / zoomCurrentLevel) * tiltDegreesOfViewOneDirection * zoomTweak;
+            int zoomTweak = 1;
+            div = (double)(zoomMax - zoomMin) / zoomLevels;
+            int zoomStep = (int)Math.Floor(div);
+            div = (double)zoomCurrent / zoomStep;
+            int zoomCurrentLevel = (int)Math.Floor(div);
 
-        var minPanView = -panOffset;
-        var maxPanView = panOffset;
-        var minTiltView = -tiltOffset;
-        var maxTiltView = tiltOffset;
+            div = (double)panDegreesOfView / 2;
+            int panDegreesOfViewOneDirection = (int)Math.Floor(div);
+            div = (double)tiltDegreesOfView / 2;
+            int tiltDegreesOfViewOneDirection = (int)Math.Floor(div);
+            int panOffset = zoomCurrent == 0 ? panDegreesOfViewOneDirection : (1 / zoomCurrentLevel) * panDegreesOfViewOneDirection * zoomTweak;
+            int tiltOffset = zoomCurrent == 0 ? tiltDegreesOfViewOneDirection : (1 / zoomCurrentLevel) * tiltDegreesOfViewOneDirection * zoomTweak;
 
-        var xres = (maxPanView - minPanView) / w; // pan value per pixel
-        var xcenter = Math.floor(w / 2);
-        var xperpixel = Math.abs(xcenter - x) * xres;
+            int minPanView = -panOffset;
+            int maxPanView = panOffset;
+            int minTiltView = -tiltOffset;
+            int maxTiltView = tiltOffset;
 
-        var pan;
-        if(x > xcenter) {
-            pan = panCurrent + xperpixel;
-        } else {
-            pan = panCurrent - xperpixel;
+            double xres = (double)(maxPanView - minPanView) / w; // pan value per pixel
+            div = (double)w / 2;
+            int xcenter = (int)Math.Floor(div);
+            double xperpixel = Math.Abs(xcenter - x) * xres;
+
+            if(x > xcenter) {
+                div = panCurrent + xperpixel;
+            } else {
+                div = panCurrent - xperpixel;
+            }
+            if(div > 0){
+                pan = (int)Math.Floor(div);
+            } else {
+                pan = (int)Math.Ceiling(div);
+            }
+
+            double yres = (double)(maxTiltView - minTiltView) / h; // tilt value per pixel
+            div = (double)h / 2;
+            int ycenter = (int)Math.Floor(div);
+            double yperpixel = Math.Abs(ycenter - y) * yres;
+
+            if(y > ycenter) {
+                div = tiltCurrent - yperpixel;
+            } else {
+                div = tiltCurrent + yperpixel;
+            }
+            if(div > 0){
+                tilt = (int)Math.Floor(div);
+            } else {
+                tilt = (int)Math.Ceiling(div);
+            }
         }
-        if(pan > 0){
-            pan = Math.floor(pan);
-        } else {
-            pan = Math.ceil(pan);
+        static int zoomLevel(int zoomMin, int zoomMax, int zoomLevels, int level) {
+            double div = (zoomMax - zoomMin) / zoomLevels;
+            int stepsPerLevel = (int)Math.Floor(div);
+            var newZoom = stepsPerLevel * level;
+            return newZoom;
         }
-
-        var yres = (maxTiltView - minTiltView) / h; // tilt value per pixel
-        var ycenter = Math.floor(h / 2);
-        var yperpixel = Math.abs(ycenter - y) * yres;
-        var tilt;
-        if(y > ycenter) {
-            tilt = tiltCurrent - yperpixel;
-        } else {
-            tilt = tiltCurrent + yperpixel;
-        }
-        if(tilt > 0){
-            tilt = Math.floor(tilt);
-        } else {
-            tilt = Math.ceil(tilt);
-        }
-
-        return {
-            pan,
-            tilt
-        };
-    }
-
-    static zoomLevel(zoomMin, zoomMax, zoomCurrent, zoomLevels, level) {
-        var stepsPerLevel = Math.floor((zoomMax - zoomMin) / zoomLevels);
-        var newZoom = stepsPerLevel * level;
-        return newZoom;
-    }
     }
 }

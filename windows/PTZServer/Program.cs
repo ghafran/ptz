@@ -109,13 +109,13 @@ namespace PTZServer
             int panDegreesOfViewOneDirection = (int)Math.Floor(div);
             div = (double)tiltDegreesOfView / 2;
             int tiltDegreesOfViewOneDirection = (int)Math.Floor(div);
-            int panOffset = zoomCurrent == 0 ? panDegreesOfViewOneDirection : (1 / zoomCurrentLevel) * panDegreesOfViewOneDirection * zoomTweak;
-            int tiltOffset = zoomCurrent == 0 ? tiltDegreesOfViewOneDirection : (1 / zoomCurrentLevel) * tiltDegreesOfViewOneDirection * zoomTweak;
+            double panOffset = zoomCurrent == 0 ? panDegreesOfViewOneDirection : (1 / (double)zoomCurrentLevel) * panDegreesOfViewOneDirection * zoomTweak;
+            double tiltOffset = zoomCurrent == 0 ? tiltDegreesOfViewOneDirection : (1 / (double)zoomCurrentLevel) * tiltDegreesOfViewOneDirection * zoomTweak;
 
-            int minPanView = -panOffset;
-            int maxPanView = panOffset;
-            int minTiltView = -tiltOffset;
-            int maxTiltView = tiltOffset;
+            double minPanView = -panOffset;
+            double maxPanView = panOffset;
+            double minTiltView = -tiltOffset;
+            double maxTiltView = tiltOffset;
 
             double xres = (double)(maxPanView - minPanView) / w; // pan value per pixel
             div = (double)w / 2;

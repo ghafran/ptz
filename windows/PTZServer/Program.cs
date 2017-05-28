@@ -26,7 +26,7 @@ namespace PTZServer
         {
             Console.WriteLine(request.Url.OriginalString);
             NameValueCollection qs = HttpUtility.ParseQueryString(request.Url.Query);
-            var name = qs.Get(ConfigurationManager.AppSettings["DeviceName"]);
+            var name = ConfigurationManager.AppSettings["DeviceName"];
             if (request.Url.LocalPath == "/cmd/zoom")
             {
                 int level = int.Parse(qs.Get("level"));

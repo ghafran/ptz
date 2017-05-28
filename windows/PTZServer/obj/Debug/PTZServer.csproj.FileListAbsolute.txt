@@ -1,0 +1,9 @@
+C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZServer.exe.config
+C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZServer.exe
+C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZServer.pdb
+C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZ.dll
+C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\DirectShowLib-2005.dll
+C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZ.pdb
+C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\obj\Debug\PTZServer.csprojResolveAssemblyReference.cache
+C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\obj\Debug\PTZServer.exe
+C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\obj\Debug\PTZServer.pdb

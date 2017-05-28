@@ -123,5 +123,67 @@ namespace PTZServer
                 return string.Format("<HTML><BODY>And we're up!<br>{0}</BODY></HTML>", DateTime.Now);
             }
         }
+        
+        static click(zoomMin, zoomMax, zoomCurrent, zoomLevels,
+        panMin, panMax, panCurrent, panDegreesOfView,
+        tiltMin, tiltMax, tiltCurrent, tiltDegreesOfView,
+        w, h, x, y) {
+
+        var zoomTweak = 1;
+        var zoomStep = Math.floor((zoomMax - zoomMin) / zoomLevels);
+        var zoomCurrentLevel = Math.floor(zoomCurrent / zoomStep);
+
+        var panDegreesOfViewOneDirection = Math.floor(panDegreesOfView / 2);
+        var tiltDegreesOfViewOneDirection = Math.floor(tiltDegreesOfView / 2);
+        var panOffset = zoomCurrent === 0 ? panDegreesOfViewOneDirection : (1 / zoomCurrentLevel) * panDegreesOfViewOneDirection * zoomTweak;
+        var tiltOffset = zoomCurrent === 0 ? tiltDegreesOfViewOneDirection : (1 / zoomCurrentLevel) * tiltDegreesOfViewOneDirection * zoomTweak;
+
+        var minPanView = -panOffset;
+        var maxPanView = panOffset;
+        var minTiltView = -tiltOffset;
+        var maxTiltView = tiltOffset;
+
+        var xres = (maxPanView - minPanView) / w; // pan value per pixel
+        var xcenter = Math.floor(w / 2);
+        var xperpixel = Math.abs(xcenter - x) * xres;
+
+        var pan;
+        if(x > xcenter) {
+            pan = panCurrent + xperpixel;
+        } else {
+            pan = panCurrent - xperpixel;
+        }
+        if(pan > 0){
+            pan = Math.floor(pan);
+        } else {
+            pan = Math.ceil(pan);
+        }
+
+        var yres = (maxTiltView - minTiltView) / h; // tilt value per pixel
+        var ycenter = Math.floor(h / 2);
+        var yperpixel = Math.abs(ycenter - y) * yres;
+        var tilt;
+        if(y > ycenter) {
+            tilt = tiltCurrent - yperpixel;
+        } else {
+            tilt = tiltCurrent + yperpixel;
+        }
+        if(tilt > 0){
+            tilt = Math.floor(tilt);
+        } else {
+            tilt = Math.ceil(tilt);
+        }
+
+        return {
+            pan,
+            tilt
+        };
+    }
+
+    static zoomLevel(zoomMin, zoomMax, zoomCurrent, zoomLevels, level) {
+        var stepsPerLevel = Math.floor((zoomMax - zoomMin) / zoomLevels);
+        var newZoom = stepsPerLevel * level;
+        return newZoom;
+    }
     }
 }

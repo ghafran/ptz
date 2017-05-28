@@ -31,7 +31,9 @@ namespace PTZServer
             {
                 int level = int.Parse(qs.Get("level"));
                 var device = PTZ.Device.GetDevice(name);
-                int res = device.AbsoluteZoom(level);
+                var stepsize = (device.ZoomMax - device.ZoomMin) / 10;
+                var newzoom = stepsize * level;
+                int res = device.AbsoluteZoom(newzoom);
                 if (res == 0)
                 {
                     return string.Format("<HTML><BODY>Zoom Successful! {0}</BODY></HTML>", DateTime.Now);
@@ -65,18 +67,18 @@ namespace PTZServer
                 var device = PTZ.Device.GetDevice(name);
 
                 var tweak = 1.2;
-                var currentzoom = device.GetZoom();
-                int currentPan = device.GetPan();
+                var currentzoom = device.GetZoom() * 3600;
+                int currentPan = device.GetPan() * 3600;
                 int currentTilt = device.GetTilt();
 
                 int zoomrange = (device.ZoomMax - device.ZoomMin) / 10;
                 int level = currentzoom / zoomrange;
                 double panOffset = currentzoom == 0 ? 56 : (1 / level) * 56 * tweak; //56 is degrees viewable from center
                 double tiltOffset = currentzoom == 0 ? 37 : (1 / level) * 37 * tweak; //37 is degrees viewable from center
-                int minPanView = (int)-panOffset;
-                int maxPanView = (int)panOffset;
-                int minTiltView = (int)-tiltOffset;
-                int maxTiltView = (int)tiltOffset;
+                int minPanView = (int)-panOffset * 3600;
+                int maxPanView = (int)panOffset * 3600;
+                int minTiltView = (int)-tiltOffset * 3600;
+                int maxTiltView = (int)tiltOffset * 3600;
                 int pan;
                 int xres = (maxPanView - minPanView) / (w); // pan value per pixel
                 int xcenter = w / 2;
@@ -102,6 +104,9 @@ namespace PTZServer
                 {
                     tilt = currentTilt + yperpixel;
                 }
+
+                pan = pan / 3600;
+                tilt = tilt / 3600;
 
                 int res = device.AbsolutePanTilt(pan, tilt);
                 if (res == 0)

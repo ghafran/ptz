@@ -72,10 +72,11 @@ namespace PTZServer
                 int currentTilt = device.GetTilt();
 
                 click(device.ZoomMin, device.ZoomMax, currentzoom, 10,
-                    device.PanMin, device.PanMax, currentPan, 4, 56,
-                    device.TiltMin, device.TiltMax, currentTilt, 4, 37,
+                    device.PanMin, device.PanMax, currentPan, 2, 65,
+                    device.TiltMin, device.TiltMax, currentTilt, 2.2, 39,
                     w, h, x, y, out pan, out tilt);
 
+                //Console.WriteLine("w: {0}, h: {1}, x: {2}, y: {3}, pan: {4}, tilt: {4}", w, h, x, y, pan, tilt);
                 int res = device.AbsolutePanTilt(pan, tilt);
                 if (res == 0)
                 {
@@ -93,33 +94,27 @@ namespace PTZServer
         }
         
         static void click(int zoomMin, int zoomMax, int zoomCurrent, int zoomLevels,
-            int panMin, int panMax, int panCurrent, int panMinDegreesOfView, int panMaxDegreesOfView,
-            int tiltMin, int tiltMax, int tiltCurrent, int tiltMinDegreesOfView, int tiltMaxDegreesOfView,
+            int panMin, int panMax, int panCurrent, double panMinDegreesOfView, double panMaxDegreesOfView,
+            int tiltMin, int tiltMax, int tiltCurrent, double tiltMinDegreesOfView, double tiltMaxDegreesOfView,
             int w, int h, int x, int y, out int pan, out int tilt) {
 
             double div;
 
             // calculate zoom steps
-            div = (double)(zoomMax - zoomMin) / zoomLevels;
-            int zoomStep = (int)Math.Floor(div);
+            double zoomStep = (zoomMax - zoomMin) / zoomLevels;
 
             // calculate current level
-            div = (double)zoomCurrent / zoomStep;
-            int zoomCurrentLevel = (int)Math.Floor(div);
+            double zoomCurrentLevel = zoomCurrent / zoomStep;
 
             // calculate current pan view angle based on zoom
-            double panDegreesRes = (panMaxDegreesOfView - panMinDegreesOfView) / (double)zoomLevels;
+            double panDegreesRes = (panMaxDegreesOfView - panMinDegreesOfView) / zoomLevels;
             double panDegreesZoomed = panMaxDegreesOfView - (panDegreesRes * zoomCurrentLevel);
-            double panDegreesOfView = zoomCurrent == 0 ? panMaxDegreesOfView : panDegreesZoomed;
-            div = (double)panDegreesOfView / 2;
-            double panDegreesOfViewOneDirection = Math.Floor(div);
+            double panDegreesOfViewOneDirection = panDegreesZoomed / 2;
 
             // calculate current tilt view angle based on zoom
-            double tiltDegreesRes = (tiltMaxDegreesOfView - tiltMinDegreesOfView) / (double)zoomLevels;
+            double tiltDegreesRes = (tiltMaxDegreesOfView - tiltMinDegreesOfView) / zoomLevels;
             double tiltDegreesZoomed = tiltMaxDegreesOfView - (tiltDegreesRes * zoomCurrentLevel);
-            double tiltDegreesOfView = zoomCurrent == 0 ? tiltMaxDegreesOfView : tiltDegreesZoomed;
-            div = (double)tiltDegreesOfView / 2;
-            double tiltDegreesOfViewOneDirection = Math.Floor(tiltDegreesOfView);
+            double tiltDegreesOfViewOneDirection = tiltDegreesZoomed / 2;
 
             // make view bounding box
             double minPanView = -panDegreesOfViewOneDirection;
@@ -128,40 +123,30 @@ namespace PTZServer
             double maxTiltView = tiltDegreesOfViewOneDirection;
 
             // calculate pan pixel to angle ratio
-            double xres = (double)(maxPanView - minPanView) / w;
-            div = (double)w / 2;
-            int xcenter = (int)Math.Floor(div);
+            double xres = (maxPanView - minPanView) / w;
+            double xcenter = (double)w / 2;
             double xperpixel = Math.Abs(xcenter - x) * xres;
 
             // calculate new pan value
             if (x > xcenter) {
-                div = panCurrent + xperpixel;
+                div = Math.Ceiling(panCurrent + xperpixel);
             } else {
-                div = panCurrent - xperpixel;
+                div = Math.Floor(panCurrent - xperpixel);
             }
-            if(div > 0){
-                pan = (int)Math.Floor(div);
-            } else {
-                pan = (int)Math.Ceiling(div);
-            }
+            pan = (int)div;
 
             // calculate tilt pixel to angle ratio
-            double yres = (double)(maxTiltView - minTiltView) / h;
-            div = (double)h / 2;
-            int ycenter = (int)Math.Floor(div);
+            double yres = (maxTiltView - minTiltView) / h;
+            double ycenter = (double)h / 2;
             double yperpixel = Math.Abs(ycenter - y) * yres;
 
             // calculate new tilt value
             if (y > ycenter) {
-                div = tiltCurrent - yperpixel;
+                div = Math.Floor(tiltCurrent - yperpixel);
             } else {
-                div = tiltCurrent + yperpixel;
+                div = Math.Ceiling(tiltCurrent + yperpixel);
             }
-            if(div > 0){
-                tilt = (int)Math.Floor(div);
-            } else {
-                tilt = (int)Math.Ceiling(div);
-            }
+            tilt = (int)div;
         }
         static int zoomLevel(int zoomMin, int zoomMax, int zoomLevels, int level) {
             double div = (zoomMax - zoomMin) / zoomLevels;

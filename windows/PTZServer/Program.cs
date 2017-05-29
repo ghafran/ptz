@@ -185,6 +185,8 @@ namespace PTZServer
                             int tiltMin, int tiltMax, int tiltCurrent, int defaultTilt, 
                             out int pan, out int tilt)
         {
+            pan = 0;
+            tilt = 0;
 			var singlePanDegreeValue = (panMax - panMin) > 360 ? 3600 : 1;
 			var singleTiltDegreeValue = (tiltMax - tiltMin) > 360 ? 3600 : 1;
 			if (command == "home")

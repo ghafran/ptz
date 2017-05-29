@@ -62,3 +62,4 @@ build/
 bin/Debug
 obj/Debug
 .vs
+.DS_Store

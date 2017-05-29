@@ -87,6 +87,30 @@ namespace PTZServer
                     return string.Format("<HTML><BODY>Click Failed! {0} - {1}</BODY></HTML>", DateTime.Now, res);
                 }
             }
+			else if (request.Url.LocalPath == "/cmd/pantilt_command")
+			{
+                string command = qs.Get("command");
+				var device = PTZ.Device.GetDevice(name);
+				int pan;
+				int tilt;
+
+				int currentPan = device.GetPan();
+				int currentTilt = device.GetTilt();
+
+				panTiltCommand(command, device.PanMin, device.PanMax, currentPan, device.PanDefault,
+					device.TiltMin, device.TiltMax, currentTilt, device.TiltDefault,
+					out pan, out tilt);
+
+				int res = device.AbsolutePanTilt(pan, tilt);
+				if (res == 0)
+				{
+					return string.Format("<HTML><BODY>Click Successful! {0}</BODY></HTML>", DateTime.Now);
+				}
+				else
+				{
+					return string.Format("<HTML><BODY>Click Failed! {0} - {1}</BODY></HTML>", DateTime.Now, res);
+				}
+			}
             else
             {
                 return string.Format("<HTML><BODY>And we're up!<br>{0}</BODY></HTML>", DateTime.Now);
@@ -148,11 +172,46 @@ namespace PTZServer
             }
             tilt = (int)div;
         }
+
         static int zoomLevel(int zoomMin, int zoomMax, int zoomLevels, int level) {
             double div = (zoomMax - zoomMin) / zoomLevels;
             int stepsPerLevel = (int)Math.Floor(div);
             var newZoom = stepsPerLevel * level;
             return newZoom;
         }
-    }
+
+        static void panTiltCommand(string command, 
+                            int panMin, int panMax, int panCurrent, int panDefault, 
+                            int tiltMin, int tiltMax, int tiltCurrent, int defaultTilt, 
+                            out int pan, out int tilt)
+        {
+			var singlePanDegreeValue = (panMax - panMin) > 360 ? 3600 : 1;
+			var singleTiltDegreeValue = (tiltMax - tiltMin) > 360 ? 3600 : 1;
+			if (command == "home")
+			{
+				pan = panDefault;
+				tilt = defaultTilt;
+			}
+			else if (command == "left")
+			{
+				pan = panCurrent - singlePanDegreeValue;
+				tilt = tiltCurrent;
+			}
+			else if (command == "right")
+			{
+				pan = panCurrent + singlePanDegreeValue;
+				tilt = tiltCurrent;
+			}
+			else if (command == "up")
+			{
+				pan = panCurrent;
+				tilt = tiltCurrent + singleTiltDegreeValue;
+			}
+			else if (command == "down")
+			{
+				pan = panCurrent;
+				tilt = tiltCurrent - singleTiltDegreeValue;
+			}
+        }
+	}
 }

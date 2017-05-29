@@ -58,3 +58,6 @@ typings/
 .env
 
 build/
+
+bin/Debug
+obj/Debug

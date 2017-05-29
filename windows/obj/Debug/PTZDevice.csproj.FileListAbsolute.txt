@@ -1,6 +1,0 @@
-C:\Users\Ghafran\Documents\GitHub\ptz\windows\bin\Debug\PTZ.dll
-C:\Users\Ghafran\Documents\GitHub\ptz\windows\bin\Debug\PTZ.pdb
-C:\Users\Ghafran\Documents\GitHub\ptz\windows\bin\Debug\DirectShowLib-2005.dll
-C:\Users\Ghafran\Documents\GitHub\ptz\windows\obj\Debug\PTZDevice.csprojResolveAssemblyReference.cache
-C:\Users\Ghafran\Documents\GitHub\ptz\windows\obj\Debug\PTZ.dll
-C:\Users\Ghafran\Documents\GitHub\ptz\windows\obj\Debug\PTZ.pdb

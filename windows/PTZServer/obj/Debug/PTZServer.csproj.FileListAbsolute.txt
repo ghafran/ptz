@@ -7,3 +7,12 @@ C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZ.pdb
 C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\obj\Debug\PTZServer.csprojResolveAssemblyReference.cache
 C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\obj\Debug\PTZServer.exe
 C:\Users\Ghafran\Documents\GitHub\ptz\windows\PTZServer\obj\Debug\PTZServer.pdb
+D:\Users\ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZServer.exe.config
+D:\Users\ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZServer.exe
+D:\Users\ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZServer.pdb
+D:\Users\ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZ.dll
+D:\Users\ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\DirectShowLib-2005.dll
+D:\Users\ghafran\Documents\GitHub\ptz\windows\PTZServer\bin\Debug\PTZ.pdb
+D:\Users\ghafran\Documents\GitHub\ptz\windows\PTZServer\obj\Debug\PTZServer.csprojResolveAssemblyReference.cache
+D:\Users\ghafran\Documents\GitHub\ptz\windows\PTZServer\obj\Debug\PTZServer.exe
+D:\Users\ghafran\Documents\GitHub\ptz\windows\PTZServer\obj\Debug\PTZServer.pdb

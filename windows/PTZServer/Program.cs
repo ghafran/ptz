@@ -99,9 +99,12 @@ namespace PTZServer
 
 				panTiltCommand(command, device.PanMin, device.PanMax, currentPan, device.PanDefault,
 					device.TiltMin, device.TiltMax, currentTilt, device.TiltDefault,
-					out pan, out tilt);
+                    out pan, out tilt);
 
 				int res = device.AbsolutePanTilt(pan, tilt);
+                if (command == "home") {
+                    res = device.AbsoluteZoom(device.ZoomDefault);
+                }
 				if (res == 0)
 				{
 					return string.Format("<HTML><BODY>Click Successful! {0}</BODY></HTML>", DateTime.Now);

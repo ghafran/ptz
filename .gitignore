@@ -63,3 +63,9 @@ bin/Debug
 obj/Debug
 .vs
 .DS_Store
+windows/bin/Debug
+windows/obj/Debug
+PTZServer/windows/bin/Debug
+PTZServer/windows/obj/Debug
+PTZTest/windows/bin/Debug
+PTZTest/windows/obj/Debug

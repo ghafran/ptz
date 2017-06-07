@@ -71,9 +71,14 @@ namespace PTZServer
                 int currentPan = device.GetPan();
                 int currentTilt = device.GetTilt();
 
+                double panMinDegreesOfView = double.Parse(ConfigurationManager.AppSettings["panMinDegreesOfView"]);
+                double panMaxDegreesOfView = double.Parse(ConfigurationManager.AppSettings["panMaxDegreesOfView"]);
+                double tiltMinDegreesOfView = double.Parse(ConfigurationManager.AppSettings["tiltMinDegreesOfView"]);
+                double tiltMaxDegreesOfView = double.Parse(ConfigurationManager.AppSettings["tiltMaxDegreesOfView"]);
+
                 click(device.ZoomMin, device.ZoomMax, currentzoom, 10,
-                    device.PanMin, device.PanMax, currentPan, 2, 65,
-                    device.TiltMin, device.TiltMax, currentTilt, 2.2, 39,
+                    device.PanMin, device.PanMax, currentPan, panMinDegreesOfView, panMaxDegreesOfView,
+                    device.TiltMin, device.TiltMax, currentTilt, tiltMinDegreesOfView, tiltMaxDegreesOfView,
                     w, h, x, y, out pan, out tilt);
 
                 //Console.WriteLine("w: {0}, h: {1}, x: {2}, y: {3}, pan: {4}, tilt: {4}", w, h, x, y, pan, tilt);

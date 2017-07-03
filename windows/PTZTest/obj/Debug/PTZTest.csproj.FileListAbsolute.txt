@@ -1,0 +1,8 @@
+C:\Users\TestAdmin\Documents\GitHub\ptz\windows\PTZTest\bin\Debug\PTZTest.exe.config
+C:\Users\TestAdmin\Documents\GitHub\ptz\windows\PTZTest\bin\Debug\PTZTest.exe
+C:\Users\TestAdmin\Documents\GitHub\ptz\windows\PTZTest\bin\Debug\PTZTest.pdb
+C:\Users\TestAdmin\Documents\GitHub\ptz\windows\PTZTest\bin\Debug\PTZ.dll
+C:\Users\TestAdmin\Documents\GitHub\ptz\windows\PTZTest\bin\Debug\DirectShowLib-2005.dll
+C:\Users\TestAdmin\Documents\GitHub\ptz\windows\PTZTest\bin\Debug\PTZ.pdb
+C:\Users\TestAdmin\Documents\GitHub\ptz\windows\PTZTest\obj\Debug\PTZTest.exe
+C:\Users\TestAdmin\Documents\GitHub\ptz\windows\PTZTest\obj\Debug\PTZTest.pdb

@@ -81,7 +81,7 @@ namespace PTZServer
                     device.TiltMin, device.TiltMax, currentTilt, tiltMinDegreesOfView, tiltMaxDegreesOfView,
                     w, h, x, y, out pan, out tilt);
 
-                //Console.WriteLine("w: {0}, h: {1}, x: {2}, y: {3}, pan: {4}, tilt: {4}", w, h, x, y, pan, tilt);
+                //Console.WriteLine("ZoomMin: {0}, ZoomMax: {1}, currentzoom: {2}, zoomLevels: {3}, pan: {4}, tilt: {4}", w, h, x, y, pan, tilt);
                 int res = device.AbsolutePanTilt(pan, tilt);
                 if (res == 0)
                 {
@@ -179,6 +179,12 @@ namespace PTZServer
                 div = Math.Ceiling(tiltCurrent + yperpixel);
             }
             tilt = (int)div;
+
+            Console.WriteLine("zoomMin: {0}, zoomMax: {1}, zoomCurrent: {2}, panMin: {3}, panMax: {4}, panCurrent: {5}, panMinDegreesOfView: {6}, panMaxDegreesOfView: {7}, tiltMin: {8}, tiltMax: {9}, tiltCurrent: {10}, tiltMinDegreesOfView: {11}, tiltMaxDegreesOfView: {12}, w: {13}, h: {14}, x: {15}, y: {16}, pan: {17}, tilt: {18}",
+            zoomMin, zoomMax, zoomCurrent, zoomLevels,
+            panMin, panMax, panCurrent, panMinDegreesOfView, panMaxDegreesOfView,
+            tiltMin, tiltMax, tiltCurrent, tiltMinDegreesOfView, tiltMaxDegreesOfView,
+            w, h, x, y, pan, tilt);
         }
 
         static int zoomLevel(int zoomMin, int zoomMax, int zoomLevels, int level) {

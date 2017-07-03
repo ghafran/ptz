@@ -180,7 +180,7 @@ namespace PTZServer
             }
             tilt = (int)div;
 
-            Console.WriteLine("zoomMin: {0}, zoomMax: {1}, zoomCurrent: {2}, panMin: {3}, panMax: {4}, panCurrent: {5}, panMinDegreesOfView: {6}, panMaxDegreesOfView: {7}, tiltMin: {8}, tiltMax: {9}, tiltCurrent: {10}, tiltMinDegreesOfView: {11}, tiltMaxDegreesOfView: {12}, w: {13}, h: {14}, x: {15}, y: {16}, pan: {17}, tilt: {18}",
+            Console.WriteLine("zoomMin: {0}, zoomMax: {1}, zoomCurrent: {2}, zoomLevels: {3}, panMin: {4}, panMax: {5}, panCurrent: {6}, panMinDegreesOfView: {7}, panMaxDegreesOfView: {8}, tiltMin: {9}, tiltMax: {10}, tiltCurrent: {11}, tiltMinDegreesOfView: {12}, tiltMaxDegreesOfView: {13}, w: {14}, h: {15}, x: {16}, y: {17}, pan: {18}, tilt: {19}",
             zoomMin, zoomMax, zoomCurrent, zoomLevels,
             panMin, panMax, panCurrent, panMinDegreesOfView, panMaxDegreesOfView,
             tiltMin, tiltMax, tiltCurrent, tiltMinDegreesOfView, tiltMaxDegreesOfView,

@@ -154,7 +154,7 @@ namespace PTZServer
             double minTiltView = -tiltDegreesOfViewOneDirection;
             double maxTiltView = tiltDegreesOfViewOneDirection;
 
-            double adjust = zoomCurrentLevel == 0 ? 1 : ((zoomCurrentLevel / zoomLevels) * 2);
+            double adjust = (1 + (zoomCurrentLevel / zoomLevels));
             Console.WriteLine("adjust: {0}, zoomCurrentLevel: {1}", adjust, zoomCurrentLevel);
 
             // calculate pan pixel to angle ratio

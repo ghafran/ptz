@@ -155,7 +155,7 @@ namespace PTZServer
             double maxTiltView = tiltDegreesOfViewOneDirection;
 
             // calculate pan pixel to angle ratio
-            double xres = (maxPanView - minPanView) / w;
+            double xres = (maxPanView - minPanView) / (w * 2);
             double xcenter = (double)w / 2;
             double xperpixel = Math.Abs(xcenter - x) * xres;
 
@@ -168,7 +168,7 @@ namespace PTZServer
             pan = (int)div;
 
             // calculate tilt pixel to angle ratio
-            double yres = (maxTiltView - minTiltView) / h;
+            double yres = (maxTiltView - minTiltView) / (h*2);
             double ycenter = (double)h / 2;
             double yperpixel = Math.Abs(ycenter - y) * yres;
 

@@ -40,6 +40,7 @@ namespace PTZ
         private Device(string name)
         {
             var devices = DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice);
+
             var device = devices.Where(d => d.Name == name).FirstOrDefault();
             if (device == null) {
                 device = devices.FirstOrDefault();

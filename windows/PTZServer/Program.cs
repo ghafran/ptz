@@ -92,7 +92,51 @@ namespace PTZServer
                     return string.Format("<HTML><BODY>Click Failed! {0} - {1}</BODY></HTML>", DateTime.Now, res);
                 }
             }
-			else if (request.Url.LocalPath == "/cmd/pantilt_command")
+            else if (request.Url.LocalPath == "/cmd/rectangle")
+            {
+                int x = int.Parse(qs.Get("x"));
+                int y = int.Parse(qs.Get("y"));
+                int rec_w = int.Parse(qs.Get("rec_w"));
+                int rec_h = int.Parse(qs.Get("rec_h"));
+                int w = int.Parse(qs.Get("w"));
+                int h = int.Parse(qs.Get("h"));
+                var device = PTZ.Device.GetDevice(name);
+                int pan;
+                int tilt;
+
+                var currentzoom = device.GetZoom();
+                int currentPan = device.GetPan();
+                int currentTilt = device.GetTilt();
+                int new_x = x + (rec_w / 2);
+                int new_y = y + (rec_h / 2);
+               
+                double new_z_ratio = 100 * rec_w / w ;
+
+                double panMinDegreesOfView = double.Parse(ConfigurationManager.AppSettings["panMinDegreesOfView"]);
+                double panMaxDegreesOfView = double.Parse(ConfigurationManager.AppSettings["panMaxDegreesOfView"]);
+                double tiltMinDegreesOfView = double.Parse(ConfigurationManager.AppSettings["tiltMinDegreesOfView"]);
+                double tiltMaxDegreesOfView = double.Parse(ConfigurationManager.AppSettings["tiltMaxDegreesOfView"]);
+
+                click(device.ZoomMin, device.ZoomMax, currentzoom, 10,
+                    device.PanMin, device.PanMax, currentPan, panMinDegreesOfView, panMaxDegreesOfView,
+                    device.TiltMin, device.TiltMax, currentTilt, tiltMinDegreesOfView, tiltMaxDegreesOfView,
+                    w, h, new_x, new_y, out pan, out tilt);
+
+
+                var newZoom = zoomLevel(device.ZoomMin, device.ZoomMax, 10, 4);
+                int res = device.AbsolutePanTilt(pan, tilt);
+                res = device.AbsoluteZoom(newZoom);
+                Console.WriteLine("rectangle command -> tilt: {0}, pan: {1}", tilt, pan);
+                if (res == 0)
+                {
+                    return string.Format("<HTML><BODY>Rectangle Click Successful! {0}</BODY></HTML>", DateTime.Now);
+                }
+                else
+                {
+                    return string.Format("<HTML><BODY>Rectangle Click Failed! {0} - {1}</BODY></HTML>", DateTime.Now, res);
+                }
+            }
+            else if (request.Url.LocalPath == "/cmd/pantilt_command")
 			{
                 string command = qs.Get("command");
 				var device = PTZ.Device.GetDevice(name);
@@ -182,7 +226,7 @@ namespace PTZServer
                 div = Math.Ceiling(tiltCurrent + yperpixel);
             }
             tilt = (int)div;
-
+            
             Console.WriteLine("zoomMin: {0}, zoomMax: {1}, zoomCurrent: {2}, zoomLevels: {3}, panMin: {4}, panMax: {5}, panCurrent: {6}, panMinDegreesOfView: {7}, panMaxDegreesOfView: {8}, tiltMin: {9}, tiltMax: {10}, tiltCurrent: {11}, tiltMinDegreesOfView: {12}, tiltMaxDegreesOfView: {13}, w: {14}, h: {15}, x: {16}, y: {17}, pan: {18}, tilt: {19}",
             zoomMin, zoomMax, zoomCurrent, zoomLevels,
             panMin, panMax, panCurrent, panMinDegreesOfView, panMaxDegreesOfView,

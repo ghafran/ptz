@@ -6,6 +6,7 @@ A camera control module for pan/tilt/zoom operations. Oh yea, in nodejs.
 
 ## Installing
 
+Install dependencies first (see below).
 ```
 npm install ptz
 ```
@@ -151,6 +152,32 @@ camera.getRelativePanTilt().then(function(panTilt){
     });
 });
 ```
+
+# Install dependencies
+Need to install `libuvc` on the machine first.
+
+## Mac
+```
+brew update
+brew install libuvc
+```
+
+## Linux
+```
+sudo apt-get install -y build-essential libudev-dev libtool
+sudo apt-get install -y libusb-dev
+cd ~
+git clone https://github.com/ktossell/libuvc
+cd libuvc
+mkdir build
+cd build
+cmake ..
+make && sudo make install
+```
+
+## Windows
+Not supported
+
 
 # As A Side Note
 

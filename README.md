@@ -158,7 +158,6 @@ Need to install `libuvc` on the machine first.
 
 ## Mac
 ```
-brew update
 brew install libuvc
 ```
 

@@ -3,7 +3,9 @@
     {
       "target_name": "ptz",
       "sources": [ "lib/ptz.cc" ],
-      "libraries": [],
+      "libraries": [
+        "-luvc"
+      ],
       "include_dirs": [
         "/usr/include/",
         "/usr/include/libusb-1.0",

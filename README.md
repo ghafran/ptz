@@ -163,14 +163,15 @@ brew install libuvc
 
 ## Linux
 ```
-sudo apt-get install -y build-essential libudev-dev libtool
-sudo apt-get install -y libusb-dev
-cd ~
+sudo apt-get install -y libusb-1.0-0-dev
+sudo apt-get install -y build-essential libudev-dev libtool cmake
+mkdir -p ~/git
+cd ~/git
 git clone https://github.com/ktossell/libuvc
 cd libuvc
 mkdir build
 cd build
-cmake ..
+cmake -D LIBUSB_INCLUDE_DIRS=/usr/include/libusb-1.0 ..
 make && sudo make install
 ```
 

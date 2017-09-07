@@ -158,7 +158,15 @@ Need to install `libuvc` on the machine first.
 
 ## Mac
 ```
-brew install libuvc
+brew install libusb
+mkdir -p ~/git
+cd ~/git
+git clone https://github.com/ktossell/libuvc
+cd libuvc
+mkdir build
+cd build
+cmake -D LIBUSB_INCLUDE_DIRS=/usr/local/Cellar/libusb/1.0.21/include/libusb-1.0 ..
+make && sudo make install
 ```
 
 ## Linux

@@ -158,6 +158,19 @@ Need to install `libuvc` on the machine first.
 
 ## Mac
 ```
+# install libusb
+brew install libtool
+mkdir -p ~/git
+cd ~/git
+git clone https://github.com/libusb/libusb
+cd libusb
+autoreconf --install
+mkdir build
+cd build
+../configure
+make && sudo make install
+
+# install libuvc
 brew install libusb
 mkdir -p ~/git
 cd ~/git

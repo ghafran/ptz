@@ -159,7 +159,7 @@ Need to install `libuvc` on the machine first.
 ## Mac
 ```
 # install libusb
-brew install libtool
+brew install libtool automake
 mkdir -p ~/git
 cd ~/git
 git clone https://github.com/libusb/libusb
@@ -171,7 +171,7 @@ cd build
 make && sudo make install
 
 # install libuvc
-brew install libusb
+brew install cmake
 mkdir -p ~/git
 cd ~/git
 git clone https://github.com/ktossell/libuvc

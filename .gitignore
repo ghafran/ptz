@@ -60,3 +60,4 @@ typings/
 build/
 
 .DS_Store
+test/test
